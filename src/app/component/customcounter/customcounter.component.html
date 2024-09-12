@@ -2,13 +2,13 @@
     <mat-card-content>
         <h1>{{channelname}}</h1>
         <mat-form-field>
-            <mat-label>Counter Input</mat-label>
-            <input matInput [(ngModel)]="counterinput">
+            <mat-label for="id1">Counter Input</mat-label>
+            <input matInput [(ngModel)]="counterinput" id="id1">
         </mat-form-field>
         <br>
         <mat-form-field>
-            <mat-label>Action Type</mat-label>
-            <mat-select [(ngModel)]="actiontype">
+            <mat-label for="id2">Action Type</mat-label>
+            <mat-select [(ngModel)]="actiontype" id="id2">
                 <mat-option value="add">Add</mat-option>
                 <mat-option value="remove">Remove</mat-option>
             </mat-select>
@@ -17,3 +17,4 @@
         <button mat-raised-button color="primary" (click)="onIncrement()">Proceed</button>
     </mat-card-content>
 </mat-card>
+
