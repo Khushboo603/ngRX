@@ -21,6 +21,8 @@ import { HomeComponent } from './component/home/home.component';
 import { AppState } from './shared/store/Global/App.state';
 import { AddblogComponent } from './component/addblog/addblog.component';
 import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { BlogEffects } from './shared/store/Blog/blog.Effects';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { EffectsModule } from '@ngrx/effects';
     FormsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     ReactiveFormsModule,
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    HttpClientModule,
+    EffectsModule.forRoot([BlogEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

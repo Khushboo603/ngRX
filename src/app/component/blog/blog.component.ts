@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AppModule } from 'src/app/app.module';
-import { BlogModel } from 'src/app/shared/store/Blog/blog.model';
-import { getblog } from 'src/app/shared/store/Blog/blog.selector';
+import { BlogModel, Blogs } from 'src/app/shared/store/Blog/blog.model';
+import { getblog, getbloginfo } from 'src/app/shared/store/Blog/blog.selector';
 import { AddblogComponent } from '../addblog/addblog.component';
 import { AppStateModel } from 'src/app/shared/store/Global/AppState.Model';
-import { deleteblog } from 'src/app/shared/store/Blog/blog.actions';
+import { deleteblog, loadblog } from 'src/app/shared/store/Blog/blog.actions';
 
 @Component({
   selector: 'app-blog',
@@ -18,10 +18,16 @@ export class BlogComponent implements OnInit {
   constructor(private store: Store<AppStateModel>, private dailog: MatDialog) { }
 
   bloglist !: BlogModel[];
+  bloginfo !: Blogs;
   ngOnInit(): void {
-    this.store.select(getblog).subscribe(item => {
-      this.bloglist = item;
-      console.log(this.bloglist);
+    this.store.dispatch(loadblog())
+    // this.store.select(getblog).subscribe(item => {
+    //   this.bloglist = item;
+    //   console.log(this.bloglist);
+    // })
+    this.store.select(getbloginfo).subscribe(item => {
+      this.bloginfo = item;
+      console.log(this.bloginfo);
     })
   }
 

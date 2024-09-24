@@ -1,22 +1,37 @@
 <div style="text-align: center;">
     <h1>Technology Blogs</h1>
-    <button (click)="AddBlog()" mat-raised-button color="primary">Add Blog</button>
-    <mat-card *ngFor="let item of bloglist" style="width: 50%; margin-left: 25%; margin-top: 2%;">
+    <div *ngIf="!bloginfo.Errormessage">
+        <button (click)="AddBlog()" mat-raised-button color="primary">Add Blog</button>
+
+        <mat-card *ngIf="!bloginfo.bloglist.length">
+            <h1>No Blog found</h1>
+        </mat-card>
+        <mat-card *ngFor="let item of bloginfo.bloglist" style="width: 50%; margin-left: 25%; margin-top: 2%;">
+            <mat-card-header>
+                <h1>{{item.title}}</h1>
+                <div style="text-align: right; width: 100%;">
+                    <button (click)="EditBlog(item.id)" mat-raised-button color="primary" style="margin-right: 2px;">
+                        <!-- <mat-icon fontIcon="edit"></mat-icon> -->
+                        Edit
+                    </button>
+                    <button (click)="DeleteBlog(item.id)" mat-raised-button color="accent">
+                        Delete
+                        <!-- <mat-icon fontIcon="delete"></mat-icon> -->
+                    </button>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <!-- <p>{{item.description}}</p> -->
+                <p>{{item.body}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <mat-card *ngIf="bloginfo.Errormessage">
         <mat-card-header>
-            <h1>{{item.title}}</h1>
-            <div style="text-align: right; width: 100%;">
-                <button (click)="EditBlog(item.id)" mat-raised-button color="primary" style="margin-right: 2px;">
-                    <!-- <mat-icon fontIcon="edit"></mat-icon> -->
-                    Edit
-                </button>
-                <button (click)="DeleteBlog(item.id)" mat-raised-button color="accent">
-                    Delete
-                    <!-- <mat-icon fontIcon="delete"></mat-icon> -->
-                </button>
-            </div>
+            <h1>Error Occurred</h1>
         </mat-card-header>
         <mat-card-content>
-            <p>{{item.description}}</p>
+            <p style="color: red;">{{bloginfo.Errormessage}}</p>
         </mat-card-content>
     </mat-card>
 </div>

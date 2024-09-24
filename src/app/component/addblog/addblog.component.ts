@@ -27,7 +27,9 @@ export class AddblogComponent implements OnInit {
       this.editblogid = this.data.id;
       this.store.select(getblogbyid(this.editblogid)).subscribe(data => {
         this.editdata = data;
-        this.blogform.setValue({id: this.editdata.id, title: this.editdata.title, description: this.editdata.description})
+        // this.blogform.setValue({id: this.editdata.id, title: this.editdata.title, description: this.editdata.description})
+        this.blogform.setValue({id: this.editdata.id, title: this.editdata.title, body: this.editdata.body})
+
       })
     }
   }
@@ -39,7 +41,8 @@ export class AddblogComponent implements OnInit {
   blogform = this.fb.group({
     id: this.fb.control(0),
     title: this.fb.control('', Validators.required),
-    description: this.fb.control('', Validators.required)
+    // description: this.fb.control('', Validators.required)
+    body: this.fb.control('', Validators.required)
   })
 
   submit() {
@@ -47,7 +50,8 @@ export class AddblogComponent implements OnInit {
       const _bloginput:BlogModel={
         id:0,
         title: this.blogform.value.title as string,
-        description: this.blogform.value.description as string
+        // description: this.blogform.value.description as string
+        body: this.blogform.value.body as string
       }
       if (this.data.isedit) {
         _bloginput.id = this.blogform.value.id as number;
