@@ -23,6 +23,11 @@ import { AddblogComponent } from './component/addblog/addblog.component';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { BlogEffects } from './shared/store/Blog/blog.Effects';
+import { AppEffects } from './shared/store/Global/App.Effects';
+import { LoadingspinnerComponent } from './component/loadingspinner/loadingspinner.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { Customserializer } from './shared/store/Router/CustomSerializer';
+import { EditblogComponent } from './component/editblog/editblog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,9 @@ import { BlogEffects } from './shared/store/Blog/blog.Effects';
     MenuheaderComponent,
     CounterComponent,
     HomeComponent,
-    AddblogComponent
+    AddblogComponent,
+    LoadingspinnerComponent,
+    EditblogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,10 @@ import { BlogEffects } from './shared/store/Blog/blog.Effects';
     ReactiveFormsModule,
     EffectsModule.forRoot([]),
     HttpClientModule,
-    EffectsModule.forRoot([BlogEffects])
+    EffectsModule.forRoot([BlogEffects, AppEffects]),
+    StoreRouterConnectingModule.forRoot(
+      {serializer: Customserializer}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

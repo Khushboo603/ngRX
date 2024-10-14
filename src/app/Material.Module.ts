@@ -6,7 +6,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     exports: [
@@ -17,7 +19,9 @@ import { MatIconModule } from '@angular/material/icon'
         MatFormFieldModule,
         // MatTabsModule,
         MatDialogModule,
-        MatIconModule
+        MatIconModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
     ]
 })
 export class MaterialModule{}

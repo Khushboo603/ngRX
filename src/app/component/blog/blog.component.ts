@@ -6,7 +6,8 @@ import { BlogModel, Blogs } from 'src/app/shared/store/Blog/blog.model';
 import { getblog, getbloginfo } from 'src/app/shared/store/Blog/blog.selector';
 import { AddblogComponent } from '../addblog/addblog.component';
 import { AppStateModel } from 'src/app/shared/store/Global/AppState.Model';
-import { deleteblog, loadblog } from 'src/app/shared/store/Blog/blog.actions';
+import { deleteblog, loadblog, loadspinner } from 'src/app/shared/store/Blog/blog.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -15,27 +16,30 @@ import { deleteblog, loadblog } from 'src/app/shared/store/Blog/blog.actions';
 })
 export class BlogComponent implements OnInit {
 
-  constructor(private store: Store<AppStateModel>, private dailog: MatDialog) { }
+  constructor(private store: Store<AppStateModel>, private dailog: MatDialog, private router: Router) { }
 
   bloglist !: BlogModel[];
   bloginfo !: Blogs;
   ngOnInit(): void {
-    this.store.dispatch(loadblog())
-    // this.store.select(getblog).subscribe(item => {
-    //   this.bloglist = item;
-    //   console.log(this.bloglist);
-    // })
-    this.store.select(getbloginfo).subscribe(item => {
-      this.bloginfo = item;
-      console.log(this.bloginfo);
-    })
+    this.store.dispatch(loadspinner({ isloaded: true }));
+    setTimeout(() => {
+      this.store.dispatch(loadblog())
+      // this.store.select(getblog).subscribe(item => {
+      //   this.bloglist = item;
+      //   console.log(this.bloglist);
+      // })
+      this.store.select(getbloginfo).subscribe(item => {
+        this.bloginfo = item;
+        console.log(this.bloginfo);
+      })
+    }, 1000);
   }
 
-  AddBlog(){
+  AddBlog() {
     this.OpenPopup(0, 'Add Blog')
   }
 
-  OpenPopup(id: any, title: any, isedit= false) {
+  OpenPopup(id: any, title: any, isedit = false) {
     this.dailog.open(AddblogComponent, {
       width: '40%',
       data: {
@@ -46,14 +50,15 @@ export class BlogComponent implements OnInit {
     })
   }
 
-  EditBlog(id:any) {
+  EditBlog(id: any) {
     console.log(id);
-    this.OpenPopup(id, 'Edit Blog', true);
+    // this.OpenPopup(id, 'Edit Blog', true);
+    this.router.navigate(['blog/edit/'+id])
   }
 
-  DeleteBlog(id:any) {
-    if(confirm('Are you sure want to remove?')) {
-      this.store.dispatch(deleteblog({id:id}));
+  DeleteBlog(id: any) {
+    if (confirm('Are you sure want to remove?')) {
+      this.store.dispatch(deleteblog({ id: id }));
     }
   }
 

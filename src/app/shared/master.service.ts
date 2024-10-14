@@ -17,11 +17,17 @@ export class MasterService {
   GetAllBlogs(): Observable<BlogModel[]> {
     return this.http.get<BlogModel[]>('https://jsonplaceholder.typicode.com/posts')
   }
-  createBlog(bloginpu: BlogModel) {
-    return this.http.post('https://jsonplaceholder.typicode.com/posts', bloginpu).pipe(
+  createBlog(bloginput: BlogModel) {
+    return this.http.post('https://jsonplaceholder.typicode.com/posts', bloginput).pipe(
       tap(() => {
         this.http.get<BlogModel>("https://jsonplaceholder.typicode.com/posts?_limit=1&_sort=id&_order=desc");
       })
     )
+  }
+  UpdatedBLog(bloginput: BlogModel) {
+    return this.http.put('https://jsonplaceholder.typicode.com/posts/'+bloginput.id, bloginput);
+  }
+  DeleteBlog(blogid: number) {
+    return this.http.delete('https://jsonplaceholder.typicode.com/posts/'+blogid);
   }
 }

@@ -10,5 +10,6 @@ export const blogState: Blogs = {
     bloglist: [
         // {id:1,title:'Angular',body:'Anguler is a opensource powered by google'},   
     ],
-    Errormessage: ''
+    Errormessage: '',
+    IsLoaded: false
 }
